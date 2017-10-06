@@ -12,7 +12,7 @@ $show_bar = $is_tags || $item['parent_id'] ||
 ?>
 
 <?php if ($fields['title']['is_in_item']){ ?>
-    <h1>
+    <h1 class="text-center">
         <?php if ($fields['user']['is_in_item'] && !empty($item['folder_title'])){ ?>
             <a href="<?php echo href_to('users', $item['user']['id'], array('content', $ctype['name'], $item['folder_id'])); ?>"><?php echo $item['folder_title']; ?></a>&nbsp;&rarr;&nbsp;
         <?php } ?>
@@ -21,7 +21,7 @@ $show_bar = $is_tags || $item['parent_id'] ||
             <span class="is_private" title="<?php html(LANG_PRIVACY_HINT); ?>"></span>
         <?php } ?>
     </h1>
-    <?php if ($show_bar){ ?>
+    <?php $show_bar = false; if ($show_bar){ ?>
         <h2 class="parent_title">
             <?php if ($fields['user']['is_in_item']){ ?>
                 <span class="album_user">
@@ -58,10 +58,10 @@ $show_bar = $is_tags || $item['parent_id'] ||
     <?php unset($fields['title']); ?>
 <?php } ?>
 
-<?php echo $this->renderControllerChild('photos', 'filter-panel', array(
-    'item' => $item,
-    'page_url' => href_to($ctype['name'], $item['slug'].'.html')
-)); ?>
+<?php //echo $this->renderControllerChild('photos', 'filter-panel', array(
+//    'item' => $item,
+//    'page_url' => href_to($ctype['name'], $item['slug'].'.html')
+//)); ?>
 
 <div class="content_item <?php echo $ctype['name']; ?>_item">
 
@@ -75,43 +75,43 @@ $show_bar = $is_tags || $item['parent_id'] ||
             <?php if ($field['options']['label_in_item'] != 'none'){ ?>
                 <div class="title_<?php echo $field['options']['label_in_item']; ?>"><?php html($field['title']); ?>: </div>
             <?php } ?>
-            <div class="value"><?php echo $field['html']; ?></div>
+            <div class="value text-center"><?php echo $field['html']; ?></div>
         </div>
 
     <?php } ?>
 
-    <?php if ($props && array_filter((array)$props_values)) { ?>
-        <?php
-            $props_fields = $this->controller->getPropsFields($props);
-            $props_fieldsets = cmsForm::mapFieldsToFieldsets($props);
-        ?>
-        <div class="content_item_props <?php echo $ctype['name']; ?>_item_props">
-            <table>
-                <tbody>
-                    <?php foreach($props_fieldsets as $fieldset){ ?>
-                        <?php if ($fieldset['title']){ ?>
-                            <tr>
-                                <td class="heading" colspan="2"><?php html($fieldset['title']); ?></td>
-                            </tr>
-                        <?php } ?>
-                        <?php if ($fieldset['fields']){ ?>
-                            <?php foreach($fieldset['fields'] as $prop){ ?>
-                                <?php if (isset($props_values[$prop['id']])) { ?>
-                                <?php $prop_field = $props_fields[$prop['id']]; ?>
-                                    <tr>
-                                        <td class="title"><?php html($prop['title']); ?></td>
-                                        <td class="value">
-                                            <?php echo $prop_field->setItem($item)->parse($props_values[$prop['id']]); ?>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
-                            <?php } ?>
-                        <?php } ?>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
-    <?php } ?>
+<!--    --><?php //if ($props && array_filter((array)$props_values)) { ?>
+<!--        --><?php
+//            $props_fields = $this->controller->getPropsFields($props);
+//            $props_fieldsets = cmsForm::mapFieldsToFieldsets($props);
+//        ?>
+<!--        <div class="content_item_props --><?php //echo $ctype['name']; ?><!--_item_props">-->
+<!--            <table>-->
+<!--                <tbody>-->
+<!--                    --><?php //foreach($props_fieldsets as $fieldset){ ?>
+<!--                        --><?php //if ($fieldset['title']){ ?>
+<!--                            <tr>-->
+<!--                                <td class="heading" colspan="2">--><?php //html($fieldset['title']); ?><!--</td>-->
+<!--                            </tr>-->
+<!--                        --><?php //} ?>
+<!--                        --><?php //if ($fieldset['fields']){ ?>
+<!--                            --><?php //foreach($fieldset['fields'] as $prop){ ?>
+<!--                                --><?php //if (isset($props_values[$prop['id']])) { ?>
+<!--                                --><?php //$prop_field = $props_fields[$prop['id']]; ?>
+<!--                                    <tr>-->
+<!--                                        <td class="title">--><?php //html($prop['title']); ?><!--</td>-->
+<!--                                        <td class="value">-->
+<!--                                            --><?php //echo $prop_field->setItem($item)->parse($props_values[$prop['id']]); ?>
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                --><?php //} ?>
+<!--                            --><?php //} ?>
+<!--                        --><?php //} ?>
+<!--                    --><?php //} ?>
+<!--                </tbody>-->
+<!--            </table>-->
+<!--        </div>-->
+<!--    --><?php //} ?>
 
     <?php
         $hooks_html = cmsEventsManager::hookAll("content_{$ctype['name']}_item_html", $item);
@@ -122,24 +122,24 @@ $show_bar = $is_tags || $item['parent_id'] ||
         <div class="append_html"><?php echo $ctype['item_append_html']; ?></div>
     <?php } ?>
 
-    <div class="info_bar">
-        <?php if (!empty($item['rating_widget'])){ ?>
-            <div class="bar_item bi_rating">
-                <?php echo $item['rating_widget']; ?>
-            </div>
-        <?php } ?>
-        <div class="bar_item bi_share">
-            <div class="share">
-                <script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js" defer></script>
-                <script src="//yastatic.net/share2/share.js" defer></script>
-                <div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,gplus,twitter,lj,tumblr,viber,whatsapp,skype,telegram" data-size="s"></div>
-            </div>
-        </div>
-        <?php if (!$item['is_approved']){ ?>
-            <div class="bar_item bi_not_approved">
-                <?php echo LANG_CONTENT_NOT_APPROVED; ?>
-            </div>
-        <?php } ?>
-    </div>
+<!--    <div class="info_bar">-->
+<!--        --><?php //if (!empty($item['rating_widget'])){ ?>
+<!--            <div class="bar_item bi_rating">-->
+<!--                --><?php //echo $item['rating_widget']; ?>
+<!--            </div>-->
+<!--        --><?php //} ?>
+<!--        <div class="bar_item bi_share">-->
+<!--            <div class="share">-->
+<!--                <script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js" defer></script>-->
+<!--                <script src="//yastatic.net/share2/share.js" defer></script>-->
+<!--                <div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,gplus,twitter,lj,tumblr,viber,whatsapp,skype,telegram" data-size="s"></div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        --><?php //if (!$item['is_approved']){ ?>
+<!--            <div class="bar_item bi_not_approved">-->
+<!--                --><?php //echo LANG_CONTENT_NOT_APPROVED; ?>
+<!--            </div>-->
+<!--        --><?php //} ?>
+<!--    </div>-->
 
 </div>
